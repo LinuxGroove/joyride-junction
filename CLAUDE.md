@@ -40,6 +40,7 @@ Run the script check and the tests before every commit. Headless runs reimport a
 - **Kenney models face -z** (stalls, booths) and paths and queues open on the sides listed in `ParkView.PATH_SHAPES`; `ParkView.turn(from, to)` rotates between headings.
 - **Parks are kept.** `ParkLibrary` stores each park as `user://parks/<id>.park` (gzipped JSON), a `.json` summary and a `.png` picture. Starting a park never touches the others. Bump `ParkData.FORMAT` when the save format changes in a way old builds can't read, and keep loading older formats.
 - **Everything works offline.** No server, no network and online turned off must all still play. Online features (the Park Gallery) need the game registered on game-server with `GAME_ID` first.
+- **Launch ping.** `game/main.gd` calls `LGLaunchPing.send(GameConfig.GAME_ID)` at startup: one anonymous request to the game server's `/launch` (game, random install id, version, OS, CPU) so the server counts every player, online or not. It's skipped headless, from source and with `DO_NOT_TRACK` set, and never blocks or retries.
 
 ## The shared add-on
 
