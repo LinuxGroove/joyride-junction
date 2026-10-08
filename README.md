@@ -29,6 +29,12 @@ running are listed there.
   play. Start a new one any time; the others stay in the list to pick up
   again, copy, rename or delete.
 
+When the game starts with the internet on, it tells the LinuxGroove game
+server once, so we can count how many people play and on what: a random id
+made on the first run, the game's version, the OS and the CPU, and nothing
+else. It never signs in, and with no network nothing is sent. Set
+`DO_NOT_TRACK=1` to turn it off.
+
 ## Controls
 
 Controller first; mouse and keyboard always work.
