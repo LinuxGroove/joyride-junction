@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Joyride Junction
+Comment=Build a theme park, ride your own coasters and keep the crowds happy.
+Exec=joyride-junction
+Icon=${SNAP}/meta/gui/joyride-junction.svg
+Categories=Game;Simulation;StrategyGame;
+Keywords=theme park;roller coaster;coaster;tycoon;builder;simulation;
+StartupWMClass=Joyride Junction
