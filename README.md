@@ -68,7 +68,9 @@ godot --path . -- --new                                        # straight into M
 
 `tools/screenshot.tscn` saves screenshots of menus and parks without a
 screen (run it under `xvfb-run`; options are listed at the top of
-`tools/screenshot.gd`).
+`tools/screenshot.gd`). [docs/screenshots](docs/screenshots/README.md) has
+a picture of every screen: parks, rides, the coaster builder, building,
+windows and menus.
 
 ## Snap
 

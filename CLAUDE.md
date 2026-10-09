@@ -11,7 +11,10 @@ godot --headless --path . tests/run_tests.tscn -- --days=120        # unit tests
 godot --path . -- --demo                                            # straight into a ready-built sample park
 godot --path . -- --new                                             # straight into Meadow Fair
 xvfb-run -a godot --path . --rendering-driver opengl3 tools/screenshot.tscn -- /tmp/shot window=ride 3
+VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json xvfb-run -a -s "-screen 0 1280x800x24" godot --path . --resolution 1280x800 tools/screenshot.tscn -- --all=docs/screenshots   # every screen
 ```
+
+`docs/screenshots/` holds a picture of every screen, made by the last command (software Vulkan from `mesa-vulkan-drivers`, so they look like the game's Forward+ renderer); run it again after changing how something looks, or `group=builder` (parks, rides, builder, building, windows, menus) for one group.
 
 Run the script check and the tests before every commit. Headless runs reimport assets and rewrite many `*.glb.import` files and `icon.png.import`; revert those (`git checkout -- '*.import'`, `rm icon.png.import`) unless you meant to change them.
 
@@ -30,7 +33,7 @@ Run the script check and the tests before every commit. Headless runs reimport a
 | `addons/linuxgroove/` | Shared LinuxGroove add-on (settings, input, theme, LAN, online, names) |
 | `addons/com.heroiclabs.nakama/` | Vendored Nakama client with a local patch (see its `VENDORED.md`) |
 | `tests/run_tests.gd` | Headless test runner; add checks with `check(ok, "what")` |
-| `tools/` | Script checker, screenshots, `version.sh`, `release.sh` |
+| `tools/` | Script checker, screenshots (`screenshot_tour.gd` shoots every screen), `version.sh`, `release.sh` |
 
 ## How the game is built
 
