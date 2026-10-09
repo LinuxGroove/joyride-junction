@@ -60,9 +60,9 @@ func setup(p_game: Game) -> void:
 	_ghost_error.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_ghost_error.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	root.add_child(_ghost_error)
-	_ghost_error.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
-	_ghost_error.custom_minimum_size.x = 800
-	_ghost_error.position = Vector2(-400, -150)
+	_ghost_error.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+	_ghost_error.offset_top -= 150
+	_ghost_error.offset_bottom -= 150
 	_build_track_panel()
 	build_menu = BuildMenu.new()
 	root.add_child(build_menu)
@@ -205,6 +205,8 @@ func on_mode_changed() -> void:
 	_tool_label.text = tool
 	_tool_label.visible = tool != ""
 	_track_panel.visible = game.mode == Game.Mode.TRACK
+	# Why a piece won't go stays clear of the track builder's panel.
+	_ghost_error.offset_right = -_track_panel.get_combined_minimum_size().x - 24.0 if _track_panel.visible else 0.0
 	if _track_panel.visible:
 		_refresh_track_panel()
 
@@ -349,8 +351,9 @@ func show_goal(state: String) -> void:
 	_goal_panel.add_child(col)
 	var won := state == "won"
 	col.add_child(LGUi.label("Scenario complete!" if won else "Out of time", "InkTitle"))
-	var text := LGUi.label(("%s did it: %s\n\nThe park is yours to keep building." if won else
-		"The goal wasn't met in time: %s\n\nYou can keep playing this park, or start it again from the title screen.") % [game.park.name, Scenarios.goal_text(game.park.scenario)], "InkLabel")
+	var goal := Scenarios.goal_text(game.park.scenario)
+	var text := LGUi.label("%s did it: %s\n\nThe park is yours to keep building." % [game.park.name, goal] if won else
+		"The goal wasn't met in time: %s\n\nYou can keep playing this park, or start it again from the title screen." % goal, "InkLabel")
 	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	text.custom_minimum_size.x = 560
 	col.add_child(text)

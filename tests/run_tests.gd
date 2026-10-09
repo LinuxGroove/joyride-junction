@@ -429,6 +429,10 @@ func _test_game_scene() -> void:
 	await _frames(1)
 	game._place(false)
 	check(p.kind_at(shop) == "stall", "a shop gets built")
+	game.cursor = Vector2(shop + Vector2i(4, 0)) + Vector2(0.5, 0.5)
+	await _frames(1)
+	var reason: Label = game.hud._ghost_error
+	check(reason.text != "" and get_viewport().get_visible_rect().encloses(reason.get_global_rect()), "why a shop can't go shows on screen (%s at %s)" % [reason.text, reason.get_global_rect()])
 	game.choose("tree")
 	game.cursor = Vector2(top.x - 3.5, top.y - 2.5)
 	await _frames(1)
@@ -480,6 +484,10 @@ func _test_game_scene() -> void:
 	check(int(game.piece[1]) == 1, "up on the D-pad picks an upward slope")
 	await _press("rotate")
 	check(int(game.piece[2]) == Track.LIFT, "rotate picks a chain lift")
+	game.set_piece([0, 2, 0])
+	await _frames(2)
+	check(reason.text != "" and reason.get_global_rect().end.x <= game.hud._track_panel.get_global_rect().position.x, "why a piece won't go is clear of the builder's panel (%s)" % reason.text)
+	game.set_piece([0, 1, 1])
 	await _press("inspect")
 	check(game.mode == Game.Mode.EXPLORE and game.hud.window.visible, "stopping building shows the ride")
 	await _frames(2)
@@ -506,6 +514,11 @@ func _test_game_scene() -> void:
 	game.hud.refresh()
 	check(game.hud.window.visible, "a shop's window opens")
 	game.hud.close_window()
+	for state in ["won", "lost"]:
+		game.hud.show_goal(state)
+		var said: String = (game.hud._goal_panel.get_child(0).get_child(1) as Label).text
+		check(said.contains(Scenarios.goal_text(p.scenario)) and not said.contains("%"), "the scenario's %s message says the goal (%s)" % [state, said])
+		game.hud._close_goal()
 	game.hud.open_pause()
 	check(game.paused and game.hud.pause_menu.visible, "the pause menu pauses the park")
 	var clock := p.clock

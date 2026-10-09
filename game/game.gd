@@ -87,6 +87,11 @@ func _ready() -> void:
 	_autosave_at = _autosave_seconds()
 	LGAudio.play_music(GameConfig.MUSIC[randi() % GameConfig.MUSIC.size()], -10.0)
 	set_mode(Mode.EXPLORE)
+	welcome()
+
+
+## Tips for a park with nothing built yet.
+func welcome() -> void:
 	if park.rides.is_empty() and park.total_guests == 0:
 		hint("Welcome to %s! Open the build menu to lay footpaths and build your first ride." % park.name)
 		if park.scenario != "":

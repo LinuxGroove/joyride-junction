@@ -7,6 +7,9 @@ extends Node
 ##   window=ride|stall|guest|park|money|staff  build  track  doors  pause   in a park
 ## Menu shots use their own park library (user://screenshot-parks), with a
 ## few parks saved in it first.
+## Or every screen, as JPEGs in <dir>/<group>/ with a README.md listing them
+## (see tools/screenshot_tour.gd for running it with software Vulkan):
+##   xvfb-run -a -s "-screen 0 1280x800x24" godot --path . --resolution 1280x800 tools/screenshot.tscn -- --all=docs/screenshots [group=builder]
 
 func _ready() -> void:
 	var args := OS.get_cmdline_user_args()
@@ -30,6 +33,12 @@ func _ready() -> void:
 	LGSettings.set_value("play", "autosave_minutes", 10, false)
 	if not opts.has("welcome"):
 		LGSettings.set_value("tutorial", "welcomed", true, false)
+	if prefix.begins_with("--all="):
+		var tour: Node = load("res://tools/screenshot_tour.gd").new()
+		add_child(tour)
+		await tour.run(prefix.trim_prefix("--all="), str(opts.get("group", "")))
+		get_tree().quit()
+		return
 	ParkLibrary.dir = "user://screenshot-parks/"
 	get_tree().current_scene = null
 	for menu in ["title", "welcome", "library", "park", "new", "about", "howto"]:
