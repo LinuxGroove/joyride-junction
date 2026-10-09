@@ -506,6 +506,11 @@ func _test_game_scene() -> void:
 	game.hud.refresh()
 	check(game.hud.window.visible, "a shop's window opens")
 	game.hud.close_window()
+	for state in ["won", "lost"]:
+		game.hud.show_goal(state)
+		var said: String = (game.hud._goal_panel.get_child(0).get_child(1) as Label).text
+		check(said.contains(Scenarios.goal_text(p.scenario)) and not said.contains("%"), "the scenario's %s message says the goal (%s)" % [state, said])
+		game.hud._close_goal()
 	game.hud.open_pause()
 	check(game.paused and game.hud.pause_menu.visible, "the pause menu pauses the park")
 	var clock := p.clock

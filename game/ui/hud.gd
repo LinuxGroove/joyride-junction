@@ -349,8 +349,9 @@ func show_goal(state: String) -> void:
 	_goal_panel.add_child(col)
 	var won := state == "won"
 	col.add_child(LGUi.label("Scenario complete!" if won else "Out of time", "InkTitle"))
-	var text := LGUi.label(("%s did it: %s\n\nThe park is yours to keep building." if won else
-		"The goal wasn't met in time: %s\n\nYou can keep playing this park, or start it again from the title screen.") % [game.park.name, Scenarios.goal_text(game.park.scenario)], "InkLabel")
+	var goal := Scenarios.goal_text(game.park.scenario)
+	var text := LGUi.label("%s did it: %s\n\nThe park is yours to keep building." % [game.park.name, goal] if won else
+		"The goal wasn't met in time: %s\n\nYou can keep playing this park, or start it again from the title screen." % goal, "InkLabel")
 	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	text.custom_minimum_size.x = 560
 	col.add_child(text)
