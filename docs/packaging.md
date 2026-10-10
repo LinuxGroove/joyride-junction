@@ -39,8 +39,12 @@ sudo snap connect joyride-junction:joystick
 
 ## Where data lives
 
-Settings, tutorial progress and the saved parks (`parks/`, see
-`ParkLibrary`) are in `$SNAP_USER_DATA/.local/share/joyride-junction`.
+Settings, tutorial progress, the saved parks (`parks/`, see `ParkLibrary`),
+logs and play test recordings are in
+`$SNAP_USER_COMMON/.local/share/joyride-junction`, which isn't copied for every
+revision. The launcher (`snap/local/joyride-junction`) sets `XDG_DATA_HOME`
+there, after the gnome extension points it at `$SNAP_USER_DATA`, and its first
+run brings over what an older revision kept in `$SNAP_USER_DATA/.local/share`.
 
 ## Updating Godot
 
