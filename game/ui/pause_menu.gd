@@ -28,6 +28,7 @@ func setup(p_game: Game) -> void:
 	_panel.add_child(_col)
 	_col.add_child(LGUi.label("Paused", "HeaderMedium"))
 	_col.add_child(LGUi.button("Resume", close, 440))
+	_col.add_child(LGPlaytestButton.make(440))
 	_col.add_child(LGUi.button("Save the park", _save, 440))
 	_col.add_child(LGUi.button("How to play", _show_howto, 440))
 	for row in [["Tips during play", "tutorial", "hints", SettingsPanel.ON_OFF],
