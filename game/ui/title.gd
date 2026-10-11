@@ -392,8 +392,10 @@ func _input(event: InputEvent) -> void:
 const ABOUT_TEXT := """[center][b]%s[/b]  v%s
 A LinuxGroove game
 
-[b]Made by[/b]
-The LinuxGroove team
+[b]Created by[/b]
+Drew VanDine
+Kaden VanDine
+Ken VanDine
 
 [b]Art, sound, music and fonts[/b]
 Kenney (kenney.nl)
