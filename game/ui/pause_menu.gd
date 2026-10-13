@@ -48,6 +48,7 @@ func open() -> void:
 	_panel.visible = true
 	_was_paused = game.paused
 	game.paused = true
+	LGAudio.pause_game(true)
 	game.hud.refresh()
 	LGUi.focus_first(_col)
 
@@ -57,6 +58,7 @@ func close() -> void:
 		return
 	visible = false
 	game.paused = _was_paused
+	LGAudio.pause_game(false)
 	game.hud.refresh()
 	var f := get_viewport().gui_get_focus_owner()
 	if f:
