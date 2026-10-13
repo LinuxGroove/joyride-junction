@@ -75,6 +75,7 @@ func setup(p_game: Game) -> void:
 	pause_menu = PauseMenu.new()
 	root.add_child(pause_menu)
 	pause_menu.setup(game)
+	LGFocusPause.watch(self, open_pause)
 	refresh()
 
 
@@ -334,6 +335,8 @@ func show_park(tab := "park") -> void:
 
 
 func open_pause() -> void:
+	if pause_menu.visible:
+		return
 	build_menu.close()
 	window.close()
 	pause_menu.open()
